@@ -1,11 +1,13 @@
 import requests
 import base64
 import sys
+import os
 
 def get_tags_google(image_path):
   # Your API key
-  api_key = 'AIzaSyA-7Nif6WHWqJqoOqGDch9sQVfB4XPOZyY'
+  api_key = os.getenv('GOOGLE_CUSTOM_SEARCH_API_KEY') 
 
+  print(f'api_key={api_key}')
   # The URL of the Vision API
   url = f"https://vision.googleapis.com/v1/images:annotate?key={api_key}"
 
