@@ -1,9 +1,7 @@
 from get_tags_google import get_tags_google
 from get_tags_clarifai import get_tags_clarifai
-from googletrans import Translator
+from google_translator import translate_word
 
-
-translator = Translator()
 
 def get_tags(file_path):
     # Pass the file path to the scripts and get their output
@@ -20,17 +18,11 @@ def get_tags(file_path):
 
     # Print the sorted items
     for word, score in sorted_items:
-        try:
-            translation = translator.translate(word, dest='ru')
-            prepared_tags.append(translation.text)
-            #print(f'{translation.text}: {score}')
-        except Exception as e:
-            try:
-                translation = translator.translate(word, dest='ru')
-                #print(f'{translation.text}: {score}')
-                prepared_tags.append(translation.text)
-            except Exception as e:
-                print(f'{word}: {score}')  # Print the word and score without translation
+        translated = translate_word(word)
+        if(len(translated) > 0):
+            prepared_tags.append(translated)
+        else:
+            print(f'{word}: {score}')  # Print the word and score without translation
     return prepared_tags
 
 if __name__ == '__main__':
